@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import { Card, FormField, Loader } from "../components";
+import { api_url } from ".";
 
 interface Props {
   data: { _id: string }[];
@@ -28,6 +29,20 @@ function Home() {
   const [loading, setLoading] = useState(false);
 
   const [searchText, setSearchText] = useState("");
+
+  useEffect(() => {
+    setLoading(true);
+    fetch(api_url + "/posts")
+      .then((res) => res.json())
+      .then((data) => {
+        setAllPosts(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setLoading(false);
+        alert(err);
+      });
+  }, []);
 
   return (
     <section className="max-w-7xl mx-auto">

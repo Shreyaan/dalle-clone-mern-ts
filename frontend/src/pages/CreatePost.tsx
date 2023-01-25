@@ -9,6 +9,7 @@ import { api_url } from ".";
 
 function CreatePost() {
   const navigate = useNavigate();
+
   const [form, setForm] = useState<{
     name: string;
     prompt: string;
@@ -25,6 +26,30 @@ function CreatePost() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
+    if (form.photo) {
+      fetch(api_url + "/posts", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: form.name,
+          prompt: form.prompt,
+          photo: form.photo,
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setLoading(false);
+          navigate("/");
+        })
+        .catch((err) => {
+          setLoading(false);
+          alert(err);
+        });
+    } else {
+      alert("Please generate an image first");
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,18 +66,15 @@ function CreatePost() {
     if (form.prompt) {
       try {
         setIsGenerating(true);
-        const response = await fetch(
-         api_url + "/dalle/generate",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              prompt: form.prompt,
-            }),
-          }
-        );
+        const response = await fetch(api_url + "/dalle/generate", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            prompt: form.prompt,
+          }),
+        });
 
         const data = await response.json();
         setForm({ ...form, photo: `data:image/jpeg;base64,${data.photo}` });
