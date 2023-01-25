@@ -1,6 +1,8 @@
 import express from "express";
 import { Router } from "express";
 import { v2 as cloudinary } from "cloudinary";
+import * as dotenv from "dotenv";
+dotenv.config();
 
 import Post from "../mongodb/models/post";
 
