@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { preview } from "../assets";
 import { getRandomPrompt } from "../utils";
 import { FormField, Loader } from "../components";
+import { api_url } from ".";
 
 function CreatePost() {
   const navigate = useNavigate();
@@ -36,7 +37,34 @@ function CreatePost() {
     setForm({ ...form, prompt: randomPrompt });
   };
 
-  const generateImage = async () => {};
+  const generateImage = async () => {
+    if (form.prompt) {
+      try {
+        setIsGenerating(true);
+        const response = await fetch(
+         api_url + "/dalle/generate",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              prompt: form.prompt,
+            }),
+          }
+        );
+
+        const data = await response.json();
+        setForm({ ...form, photo: `data:image/jpeg;base64,${data.photo}` });
+      } catch (err) {
+        alert(err);
+      } finally {
+        setIsGenerating(false);
+      }
+    } else {
+      alert("Please provide proper prompt");
+    }
+  };
 
   return (
     <section className="max-w-7xl mx-auto">
