@@ -35,13 +35,15 @@ function Home() {
   const [loading, setLoading] = useState(false);
 
   const [searchText, setSearchText] = useState("");
+  const [searchTimeout, setSearchTimeout] = useState<any>(null);
+  const [searchedResults, setSearchedResults] = useState<DataType>([]);
 
   useEffect(() => {
     setLoading(true);
     fetch(api_url + "/posts")
       .then((res) => res.json())
       .then((data: DataType) => {
-        data= data.reverse();
+        data = data.reverse();
         setAllPosts(data);
         setLoading(false);
       })
@@ -50,6 +52,24 @@ function Home() {
         alert(err);
       });
   }, []);
+
+  const handleSearchChange = (e: {
+    target: { value: React.SetStateAction<string> };
+  }) => {
+    clearTimeout(searchTimeout);
+    setSearchText(e.target.value);
+
+    setSearchTimeout(
+      setTimeout(() => {
+        const searchResult = allPosts.filter(
+          (item) =>
+            item.name.toLowerCase().includes(searchText.toLowerCase()) ||
+            item.prompt.toLowerCase().includes(searchText.toLowerCase())
+        );
+        setSearchedResults(searchResult);
+      }, 500)
+    );
+  };
 
   return (
     <section className="max-w-7xl mx-auto">
@@ -63,7 +83,16 @@ function Home() {
         </p>
       </div>
 
-      <div className="mt-16">{/* <FormField /> */}</div>
+      <div className="mt-16">
+        <FormField
+          labelName="Search posts"
+          type="text"
+          name="text"
+          placeholder="Search something..."
+          value={searchText}
+          handleChange={handleSearchChange}
+        />
+      </div>
 
       <div className="mt-10">
         {loading ? (
@@ -80,7 +109,7 @@ function Home() {
         )}
         <div className="grid lg:grid-cols-4 sm:grid-cols-3 xs:grid-cols-2 grid-cols-1 gap-3">
           {searchText ? (
-            <RenderCards data={[]} title="No Search Results Found" />
+            <RenderCards data={searchedResults} title="No Search Results Found" />
           ) : (
             <RenderCards data={allPosts} title="No Posts Yet" />
           )}
