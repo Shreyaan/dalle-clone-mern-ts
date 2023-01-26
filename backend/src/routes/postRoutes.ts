@@ -28,7 +28,7 @@ router.post("/", async (req: Request, res: Response) => {
       throw new Error("All fields are required");
     }
 
-    let fileName = name + prompt + nanoid(4) + ".jpg";
+    let fileName = name + ' - ' + prompt + ' - ' + nanoid(4) + ".jpg";
     const storageRef = ref(storage, `images/${fileName}`);
     const message4 = photo;
 

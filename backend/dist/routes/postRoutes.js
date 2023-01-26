@@ -22,7 +22,7 @@ router.post("/", async (req, res) => {
         if (!name || !prompt || !photo) {
             throw new Error("All fields are required");
         }
-        let fileName = name + prompt + nanoid(4) + ".jpg";
+        let fileName = name + ' - ' + prompt + ' - ' + nanoid(4) + ".jpg";
         const storageRef = ref(storage, `images/${fileName}`);
         const message4 = photo;
         sharp(Buffer.from(message4.split(",")[1], "base64"))
