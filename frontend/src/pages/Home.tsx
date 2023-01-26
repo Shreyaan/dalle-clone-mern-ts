@@ -3,8 +3,14 @@ import React, { useState, useEffect } from "react";
 import { Card, FormField, Loader } from "../components";
 import { api_url } from ".";
 
+type DataType = {
+  _id: string;
+  name: string;
+  prompt: string;
+  photo: string;
+}[];
 interface Props {
-  data: { _id: string }[];
+  data: DataType;
   title: string;
 }
 
@@ -25,7 +31,7 @@ const RenderCards = ({ data, title }: Props) => {
 };
 
 function Home() {
-  const [allPosts, setAllPosts] = useState([]);
+  const [allPosts, setAllPosts] = useState<DataType>([]);
   const [loading, setLoading] = useState(false);
 
   const [searchText, setSearchText] = useState("");
@@ -34,7 +40,8 @@ function Home() {
     setLoading(true);
     fetch(api_url + "/posts")
       .then((res) => res.json())
-      .then((data) => {
+      .then((data: DataType) => {
+        data= data.reverse();
         setAllPosts(data);
         setLoading(false);
       })
@@ -56,9 +63,7 @@ function Home() {
         </p>
       </div>
 
-      <div className="mt-16">
-        {/* <FormField /> */}
-      </div>
+      <div className="mt-16">{/* <FormField /> */}</div>
 
       <div className="mt-10">
         {loading ? (
