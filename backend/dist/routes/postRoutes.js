@@ -26,7 +26,7 @@ router.post("/", async (req, res) => {
         const storageRef = ref(storage, `images/${fileName}`);
         const message4 = photo;
         sharp(Buffer.from(message4.split(",")[1], "base64"))
-            .resize(400, 300) // width, height
+            .resize(512, 512) // width, height
             .jpeg({ quality: 90 }) // set the quality to 80
             .toBuffer()
             .then((compressedImage) => {
