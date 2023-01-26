@@ -1,10 +1,10 @@
 ## **Dalle Clone**
 
-Dalle Clone is a full stack MERN application built with TypeScript that utilizes the power of OpenAI's DALL-E API to generate images, and allows users to save and showcase their creations on a community gallery. The application is built with Vite for React, Tailwind CSS, MongoDB, Express, and Node.js. It uses Firebase Cloud Storage to store images, and MongoDB to store image information such as the user's name and the prompt used to generate the image.
+Dalle Clone is a full stack MERN application built with TypeScript that utilizes the power of OpenAI's DALL-E API to generate images, and allows users to save and showcase their creations on a community gallery. The application is built with Nextjs, Tailwind CSS, MongoDB, Express, and Node.js. It uses Firebase Cloud Storage to store images, and MongoDB to store image information such as the user's name and the prompt used to generate the image.
 
 ### **Tech Stack**
 
-- **Front-end**: React, Vite, and Tailwind CSS
+- **Front-end**: React, Nextjs, and Tailwind CSS
 - **Back-end**: Node.js, Express, MongoDB, Firebase
 - **TypeScript**: Application is written in typescript.
 
