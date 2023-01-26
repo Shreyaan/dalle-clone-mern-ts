@@ -3,10 +3,9 @@ import Head from "next/head";
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
 
-import { Card, FormField, Loader } from "../components";
+import { Card, FormField, Loader, Hero } from "../components";
 
 import { api_url } from "../utils";
-import Hero from "../components/hero";
 
 type DataType = {
   _id: string;
