@@ -29,8 +29,8 @@ const PostPage = ({ post }: Props) => {
         <title>{post.name}</title>
         {/* og image */}
 
-        <meta property="og:description" content={`by ${post.name}`} />
-        <meta property="og:title" content={`Prompt - ${post.prompt}`} />
+        <meta property="og:description" content={`dalle clone`} />
+        <meta property="og:title" content={`Hey Look! I generated this image by using '${post.prompt}' prompt`} />
         <meta property="og:image" content={post.photo} />
         <meta property="og:url" content={api_url + "/posts/" + post._id} />
         <meta property="og:type" content="website" />
