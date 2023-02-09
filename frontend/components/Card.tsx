@@ -5,7 +5,7 @@ import { downloadImage } from '../utils';
 
 function Card({_id, name, prompt, photo}: {_id:string ;name: string, prompt: string, photo: string}) {
   return (
-    <div className="rounded-xl group relative shadow-card hover:shadow-cardhover card" onClick={()=>{
+    <div className="rounded-xl group relative shadow-card hover:shadow-cardhover card cursor-pointer" onClick={()=>{
       window.location.href = `/posts/${_id}`
     }}>
     <img
